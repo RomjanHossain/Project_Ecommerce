@@ -52,12 +52,17 @@
 					<h2 class="contact__title">Get in touch</h2>
 					<p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. </p>
 					<form method="POST">
+
 						{%csrf_token%}
+						{%if form.errors%}
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							{{form.errors}}
+						</div>
+						{%endif%}
 						<div class="single-contact-form space-between">
 							{{form.firstname}}
 							{{form.lastname}}
 						</div>
-						<li>Gmail is Allowed</li>
 						<div class="single-contact-form space-between">
 							{{form.email}}
 						</div>
@@ -69,7 +74,7 @@
 						</div>
 
 						<div class="contact-btn">
-							<button type="submit" >send email</button>
+							<button type="submit">send email</button>
 						</div>
 					</form>
 				</div>
