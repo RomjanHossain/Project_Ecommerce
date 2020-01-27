@@ -241,6 +241,22 @@
 									<div class="content-inner">
 										<div class="switcher-currency">
 											<strong class="label switcher-label">
+												<span>My Account</span>
+											</strong>
+											<div class="switcher-options">
+												<div class="switcher-currency-trigger">
+													<div class="setting__menu">
+														<span><a href="{%url 'regi'%}">Create An Account</a></span>
+														<span><a href="{%url 'login'%}">Sign In</a></span>
+														<!-- <span><a href="#">Compare Product</a></span>
+														<span><a href="#">My Account</a></span>
+														<span><a href="#">My Wishlist</a></span> -->
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="switcher-currency">
+											<strong class="label switcher-label">
 												<span>Currency</span>
 											</strong>
 											<div class="switcher-options">
@@ -285,22 +301,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="switcher-currency">
-											<strong class="label switcher-label">
-												<span>My Account</span>
-											</strong>
-											<div class="switcher-options">
-												<div class="switcher-currency-trigger">
-													<div class="setting__menu">
-														<span><a href="#">Compare Product</a></span>
-														<span><a href="#">My Account</a></span>
-														<span><a href="#">My Wishlist</a></span>
-														<span><a href="#">Sign In</a></span>
-														<span><a href="#">Create An Account</a></span>
-													</div>
-												</div>
-											</div>
-										</div>
+
 									</div>
 								</div>
 							</li>
@@ -354,7 +355,6 @@
 	            <!-- Mobile Menu -->
 			</div>
 		</header>
-		{%block content%}
 		<!-- //Header -->
 		<!-- Start Search Popup -->
 		<div class="brown--color box-search-content search_active block-bg close__top">
@@ -371,6 +371,7 @@
 			</div>
 		</div>
 		<!-- End Search Popup -->
+		{%block content%}
         <!-- Start Slider area -->
         <div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
         	<!-- Start Single Slide -->

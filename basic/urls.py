@@ -7,6 +7,8 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
     path('t/', views.test, name='test'),
+    path('signin/', views.login_form, name='login'),
+    path('register/', views.register, name='regi'),
 ]
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

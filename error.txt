@@ -1,1 +1,3 @@
 01. Form does not show error when email is not gmail!
+02. view my Account
+03 . view my wishlist
