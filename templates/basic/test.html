@@ -1,120 +1,60 @@
 {%extends 'basic/home.html'%}
+{%load static%}
 {%block content%}
-<div class="box-search-content search_active block-bg close__top">
-    <form id="search_mini_form" class="minisearch" action="#">
-        <div class="field__search">
-            <input type="text" placeholder="Search entire store here...">
-            <div class="action">
-                <a href="#"><i class="zmdi zmdi-search"></i></a>
-            </div>
-        </div>
-    </form>
-    <div class="close__wrap">
-        <span>close</span>
-    </div>
-</div>
-<!-- End Search Popup -->
-<!-- Start Bradcaump area -->
-<div class="ht__bradcaump__area bg-image--6">
+
+<section class="wn__product__area brown--color pt--80  pb--30">
+
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div class="bradcaump__inner text-center">
-                    <h2 class="bradcaump-title">Contact Us</h2>
-                    <nav class="bradcaump-content">
-                      <a class="breadcrumb_item" href="{%url 'home'%}">Home</a>
-                      <span class="brd-separetor">/</span>
-                      <span class="breadcrumb_item active">Contact Us</span>
-                    </nav>
+                <div class="section__title text-center">
+                    <h2 class="title__be--2">New <span class="color--theme">Products</span></h2>
+                    <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered lebmid alteration in some ledmid form</p>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<!-- End Bradcaump area -->
-<!-- Start Contact Area -->
-<section class="wn_contact_area bg--white pt--80 pb--80">
-    <div class="google__map pb--80">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div id="googleMap"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-12">
-                <div class="contact-form-wrap">
-                    <h2 class="contact__title">Get in touch</h2>
-                    <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. </p>
-                    <form id="contact-form" action="#" method="post">
-                        <div class="single-contact-form space-between">
-                            <input type="text" name="firstname" placeholder="First Name*">
-                            <input type="text" name="lastname" placeholder="Last Name*">
+        <!-- Start Single Tab Content -->
+        <div class="furniture--4 border--round arrows_style owl-carousel owl-theme row mt--50">
+            <!-- Start Single Product -->
+            {%for i in qs%}
+            <div class="product product__style--3">
+                <div class="col-lg-3 col-md-4 col-sm-6 col-12">
+                    <div class="product__thumb">
+                        <a class="first__img" href="single-product.html"><img src="{{i.image.url}}" width="340" height="270" alt="product image"></a>
+                        <a class="second__img animation1" href="single-product.html"><img src="{%static 'images/books/2.jpg'%}" width="340" height="270" alt="product image"></a>
+                        <div class="hot__box">
+                            <span class="hot-label">BEST SALLER</span>
                         </div>
-                        <div class="single-contact-form space-between">
-                            <input type="email" name="email" placeholder="Email*">
-                            <input type="text" name="website" placeholder="Website*">
-                        </div>
-                        <div class="single-contact-form">
-                            <input type="text" name="subject" placeholder="Subject*">
-                        </div>
-                        <div class="single-contact-form message">
-                            <textarea name="message" placeholder="Type your message here.."></textarea>
-                        </div>
-                        <div class="contact-btn">
-                            <button type="submit">Send Email</button>
-                        </div>
-                    </form>
-                </div>
-                <div class="form-output">
-                    <p class="form-messege">
-                </div>
-            </div>
-            <div class="col-lg-4 col-12 md-mt-40 sm-mt-40">
-                <div class="wn__address">
-                    <h2 class="contact__title">Get office info.</h2>
-                    <p>Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima. </p>
-                    <div class="wn__addres__wreapper">
-
-                        <div class="single__address">
-                            <i class="icon-location-pin icons"></i>
-                            <div class="content">
-                                <span>address:</span>
-                                <p>666 5th Ave New York, NY, United</p>
+                    </div>
+                    <div class="product__content content--center">
+                        <h4><a href="single-product.html">{{i.title}}</a></h4>
+                        <ul class="prize d-flex">
+                            <li>{{i.price}}</li>
+                            <li class="old_prize">$35.00</li>
+                        </ul>
+                        <div class="action">
+                            <div class="actions_inner">
+                                <ul class="add_to_links">
+                                    <li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
+                                    <li><a class="wishlist" href="wishlist.html"><i class="bi bi-shopping-cart-full"></i></a></li>
+                                    <li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
+                                    <li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
+                                </ul>
                             </div>
                         </div>
-
-                        <div class="single__address">
-                            <i class="icon-phone icons"></i>
-                            <div class="content">
-                                <span>Phone Number:</span>
-                                <p>716-298-1822</p>
-                            </div>
+                        <div class="product__hover--content">
+                            <ul class="rating d-flex">
+                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                <li class="on"><i class="fa fa-star-o"></i></li>
+                                <li><i class="fa fa-star-o"></i></li>
+                                <li><i class="fa fa-star-o"></i></li>
+                            </ul>
                         </div>
-
-                        <div class="single__address">
-                            <i class="icon-envelope icons"></i>
-                            <div class="content">
-                                <span>Email address:</span>
-                                <p>716-298-1822</p>
-                            </div>
-                        </div>
-
-                        <div class="single__address">
-                            <i class="icon-globe icons"></i>
-                            <div class="content">
-                                <span>website address:</span>
-                                <p>716-298-1822</p>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+            {%endfor%}
+        <!-- Start Single Product -->
 </section>
 {%endblock%}
