@@ -25,29 +25,29 @@
             <div class="col-lg-6 col-12">
                 {%if messages%}
 
-                    {%for message in messages%}
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        {{message}}
+                {%for message in messages%}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{message}}
                     {%endfor%}
 
                 </div>
                 {%endif%}
                 <!-- <div class="my__account__wrapper"> -->
-                    <h3 class="account__title">Login</h3>
-                    <form action="#" method="POST">
-                        <div class="account__form">
-                            {%csrf_token%}
-                            {{form|crispy}}
-                            <div class="form__btn">
-                                <button>Login</button>
-                                <label class="label-for-checkbox">
-                                    <input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
-                                    <span>Remember me</span>
-                                </label>
-                            </div>
-                            <a class="forget_pass" href="#">Lost your password?</a>
+                <h3 class="account__title">Login</h3>
+                <form action="#" method="POST">
+                    <div class="account__form">
+                        {%csrf_token%}
+                        {{form|crispy}}
+                        <div class="form__btn">
+                            <button>Login</button>
+                            <label class="label-for-checkbox">
+                                <input id="rememberme" class="input-checkbox" name="rememberme" value="forever" type="checkbox">
+                                <span>Remember me</span>
+                            </label>
                         </div>
-                    </form>
+                        <a class="forget_pass" href="#">Lost your password?</a>
+                    </div>
+                </form>
                 <!-- </div> -->
             </div>
         </div>

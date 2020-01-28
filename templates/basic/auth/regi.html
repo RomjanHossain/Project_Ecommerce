@@ -1,5 +1,6 @@
 {%extends 'basic/home.html'%}
 {%block content%}
+{% load crispy_forms_tags %}
 <div class="ht__bradcaump__area bg-image--6">
     <div class="container">
         <div class="row">
@@ -18,28 +19,32 @@
 </div>
 <!-- End Bradcaump area -->
 <!-- Start My Account Area -->
-<section class="my_account_area pt--80 pb--55 bg--white " >
+<section class="my_account_area pt--80 pb--55 bg--white">
     <div class="container">
+        <div class="row">
             <div class="col-lg-6 col-12">
-                <div class="my__account__wrapper">
-                    <h3 class="account__title">Register</h3>
-                    <form action="#">
-                        <div class="account__form">
-                            <div class="input__box">
-                                <label>Email address <span>*</span></label>
-                                <input type="email">
-                            </div>
-                            <div class="input__box">
-                                <label>Password<span>*</span></label>
-                                <input type="password">
-                            </div>
-                            <div class="form__btn">
-                                <button>Register</button>
-                            </div>
-                        </div>
-                    </form>
+                {%if messages%}
+
+                {%for message in messages%}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{message}}
+                    {%endfor%}
+
                 </div>
+                {%endif%}
+                <!-- <div class="my__account__wrapper"> -->
+                <h3 class="account__title">Register</h3>
+                <form action="#" method="POST">
+                    <div class="account__form">
+                        {%csrf_token%}
+                        {{form|crispy}}
+                        <div class="form__btn">
+                            <button>Register</button>
+                        </div>
+                    </div>
+                </form>
+                <!-- </div> -->
             </div>
-    </div>
+        </div>
 </section>
 {%endblock%}

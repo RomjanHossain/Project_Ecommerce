@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import ContactForm, SignInForm
+from .forms import ContactForm, SignInForm, Registerform
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, get_user_model, login, logout
 # Create your views here.
+
+User = get_user_model()
 
 
 def home(request):
@@ -41,7 +43,6 @@ def login_form(request):
         if user is not None:
             login(request, user)
             print(user.is_authenticated)
-            messages.success(request, "You've logged in Successfully")
             return redirect('home')
         else:
             messages.success(request, "Info incorrecet")
@@ -51,17 +52,26 @@ def login_form(request):
 
 
 def register(request):
+    form = Registerform(request.POST or None)
     context = {
-        'title': 'Register'
+        'title': 'Register',
+        'form': form
     }
+    if form.is_valid():
+        print(form.cleaned_data)
+        username = form.cleaned_data['username']
+        email = form.cleaned_data['email']
+        password = form.cleaned_data['password1']
+        new_user = User.objects.create_user(username, email, password)
+        messages.success(request, message=f"User {username} created")
+        return redirect('login')
     return render(request, 'basic/auth/regi.html', context)
-
-
-def test(request):
-    return render(request, 'basic/test.html')
 
 
 def logout_user(request):
     logout(request)
-    messages.success(request, "You're logged Out Successfully")
     return redirect('home')
+
+
+def test(request):
+    return render(request, 'basic/test.html')
