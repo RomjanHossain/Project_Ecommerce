@@ -246,8 +246,12 @@
 											<div class="switcher-options">
 												<div class="switcher-currency-trigger">
 													<div class="setting__menu">
+														{%if user.is_authenticated%}
+														<span><a href="{%url 'logout'%}">Logout</a></span>
+														{%else%}
 														<span><a href="{%url 'regi'%}">Create An Account</a></span>
 														<span><a href="{%url 'login'%}">Sign In</a></span>
+														{%endif%}
 														<!-- <span><a href="#">Compare Product</a></span>
 														<span><a href="#">My Account</a></span>
 														<span><a href="#">My Wishlist</a></span> -->

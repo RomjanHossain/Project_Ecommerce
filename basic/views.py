@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import ContactForm, SignInForm
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
@@ -28,24 +29,25 @@ def contact(request):
 
 
 def login_form(request):
-    sign_in_form = SignInForm()
+    form = SignInForm()
     context = {
-        'title': 'Sign in',
-        'signin': sign_in_form
+        'form': form
     }
-    if sign_in_form.is_valid():
-        username = sign_in_form.cleaned_data.get('username')
-        password = sign_in_form.cleaned_data.get('password')
-        print(sign_in_form.cleaned_data)
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
         user = authenticate(request, username=username, password=password)
-        print(user.is_authenticated)
+        print(username, password)
         if user is not None:
             login(request, user)
+            print(user.is_authenticated)
+            messages.success(request, "You've logged in Successfully")
             return redirect('home')
         else:
-            print('User not Found')
-        context['signin'] = SignInForm()
-    return render(request, 'basic/auth/login.html', context)
+            messages.success(request, "Info incorrecet")
+            return redirect('login')
+    else:
+        return render(request, 'basic/auth/login.html', context)
 
 
 def register(request):

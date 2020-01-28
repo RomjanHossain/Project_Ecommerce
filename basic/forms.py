@@ -30,7 +30,7 @@ class ContactForm(forms.Form):
 
 class SignInForm(forms.Form):
     username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput())
+    password = forms.CharField(widget=forms.PasswordInput)
 
 
 # class Registerform(forms.Form):
