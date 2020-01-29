@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-lg-6 col-12">
                             <div class="product__info__main">
-                                <h1>Chaz Kangeroo Hoodie</h1>
+                                <h1>{{p.title}}</h1>
                                 <div class="product-reviews-summary d-flex">
                                     <ul class="rating-summary d-flex">
                                         <li><i class="zmdi zmdi-star-outline"></i></li>
@@ -53,11 +53,10 @@
                                     </ul>
                                 </div>
                                 <div class="price-box">
-                                    <span>$52.00</span>
+                                    <span>{{p.price}}</span>
                                 </div>
                                 <div class="product__overview">
-                                    <p>Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.</p>
-                                    <p>Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. </p>
+                                    <p>{{p.description|truncatewords:"50"}}</p>
                                 </div>
                                 <div class="box-tocart d-flex">
                                     <span>Qty</span>
@@ -114,15 +113,7 @@
                         <!-- Start Single Tab Content -->
                         <div class="pro__tab_label tab-pane fade show active" id="nav-details" role="tabpanel">
                             <div class="description__attribute">
-                                <p>Ideal for cold-weather training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.Ideal for cold-weather
-                                    training or work outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.Ideal for cold-weather training or work
-                                    outdoors, the Chaz Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.Ideal for cold-weather training or work outdoors, the Chaz
-                                    Hoodie promises superior warmth with every wear. Thick material blocks out the wind as ribbed cuffs and bottom band seal in body heat.</p>
-                                <ul>
-                                    <li>• Two-tone gray heather hoodie.</li>
-                                    <li>• Drawstring-adjustable hood. </li>
-                                    <li>• Machine wash/dry.</li>
-                                </ul>
+                                <p>{{p.description}}</p>
                             </div>
                         </div>
                         <!-- End Single Tab Content -->
