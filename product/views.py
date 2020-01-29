@@ -21,14 +21,6 @@ def ProductView(request):
     return render(request, 'basic/test.html', context)
 
 
-def product_detail_view(request, pk=None, *args, **kwargs):
-    instance = get_object_or_404(Product, pk=pk)
-    context = {
-        'object': instance
-    }
-    return render(request, "product/detail.html", context)
-
-
 def featured_view(request, pk=None, *args, **kwargs):
     try:
         obj = Product.objects.get(id=pk, featured=True)
@@ -47,3 +39,11 @@ def slug_view(request, slug, *args, **kwargs):
         'object': instance
     }
     return render(request, "product/detail.html", context)
+
+
+def DeatilView(request, pk=None, *args, **kwargs):
+    instance = get_object_or_404(Product, pk=pk)
+    context = {
+        'p': instance
+    }
+    return render(request, 'product/detail.html', context)
