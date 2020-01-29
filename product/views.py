@@ -12,8 +12,10 @@ from .models import Product
 
 def ProductView(request):
     NewProduct = Product.objects.order_by('-times')
+    AllProduct = Product.objects.all()
     context = {
-        'np': NewProduct
+        'np': NewProduct,
+        'ap': AllProduct
     }
     # print(context['qs'])
     return render(request, 'basic/test.html', context)
