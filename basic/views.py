@@ -2,14 +2,19 @@ from django.shortcuts import render, redirect
 from .forms import ContactForm, SignInForm, Registerform
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
+from product.models import Product
 # Create your views here.
 
 User = get_user_model()
 
 
 def home(request):
+    AllProduct = Product.objects.all()
+    NewProduct = Product.objects.order_by('-times')
     context = {
-        'title': 'Home'
+        'title': 'Home',
+        'np': NewProduct,
+        'ap': AllProduct
     }
     return render(request, 'basic/home.html', context)
 
