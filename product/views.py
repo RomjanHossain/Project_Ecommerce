@@ -33,16 +33,16 @@ def featured_view(request, pk=None, *args, **kwargs):
     return render(request, 'product/detail.html', context)
 
 
-def slug_view(request, slug, *args, **kwargs):
+# def slug_view(request, slug, *args, **kwargs):
+#     instance = get_object_or_404(Product, slug=slug)
+#     context = {
+#         'object': instance
+#     }
+#     return render(request, "product/detail.html", context)
+
+
+def DeatilView(request, slug, *args, **kwargs):
     instance = get_object_or_404(Product, slug=slug)
-    context = {
-        'object': instance
-    }
-    return render(request, "product/detail.html", context)
-
-
-def DeatilView(request, pk=None, *args, **kwargs):
-    instance = get_object_or_404(Product, pk=pk)
     context = {
         'p': instance
     }
