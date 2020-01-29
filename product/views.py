@@ -47,3 +47,11 @@ def DeatilView(request, slug, *args, **kwargs):
         'p': instance
     }
     return render(request, 'product/detail.html', context)
+
+
+def QuickView(request, slug, *args, **kwargs):
+    instance = get_object_or_404(Product, slug=slug)
+    context = {
+        'p': instance
+    }
+    return render(request, 'product/quickview.html', context)
