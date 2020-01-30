@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from product.models import Product
 from django.db.models import Q
+from tags.models import Tag
 # Create your views here.
 
 
@@ -9,8 +10,10 @@ def searchedView(request):
     query = request.GET.get('q')
     print(query)
     if query is not None:
-        lookups = Q(title__icontains=query) | Q(
-            description__icontains=query)
+        lookups = (Q(title__icontains=query) | Q(
+            description__icontains=query) | Q(price__icontains=query) | Q(
+            tag__title__icontains=query
+        ))
         searched = Product.objects.filter(lookups).distinct()
     # else:
     #     searched = Product.objects.filter(featured=True)
