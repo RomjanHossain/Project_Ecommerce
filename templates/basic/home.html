@@ -444,8 +444,12 @@
 							<div class="product__content content--center">
 								<h4><a href="{%url 'detail' i.slug%}">{{i.title}}</a></h4>
 								<ul class="prize d-flex">
-									<li>{{i.price}}</li>
-									<li class="old_prize">$35.00</li>
+									{%if i.discound_price%}
+									<li>${{i.discound_price}}</li>
+									<li class="old_prize">${{i.price}}</li>
+									{%else%}
+									<li>${{i.price}}</li>
+									{%endif%}
 								</ul>
 								<div class="action">
 									<div class="actions_inner">
