@@ -63,7 +63,7 @@
 											<li class="title">Shop Page</li>
 											<li><a href="my-account.html">My Account</a></li>
 											<li><a href="{%url 'cart'%}">Cart Page</a></li>
-											<li><a href="checkout.html">Checkout Page</a></li>
+											<li><a href="{%url 'checkout'%}">Checkout Page</a></li>
 											<li><a href="wishlist.html">Wishlist Page</a></li>
 											<li><a href="error404.html">404 Page</a></li>
 											<li><a href="faq.html">Faq Page</a></li>
@@ -138,7 +138,7 @@
 											</li>
 											<li><a href="my-account.html">My Account</a></li>
 											<li><a href="{%url 'cart'%}">Cart Page</a></li>
-											<li><a href="checkout.html">Checkout Page</a></li>
+											<li><a href="{%url 'checkout'%}">Checkout Page</a></li>
 											<li><a href="wishlist.html">Wishlist Page</a></li>
 											<li><a href="faq.html">Faq Page</a></li>
 											<li><a href="team.html">Team Page</a></li>
@@ -169,14 +169,14 @@
 											<span>close</span>
 										</div>
 										<div class="items-total d-flex justify-content-between">
-											<span>3 items</span>
+											<span>{{request.session.cart_total}} items</span>
 											<span>Cart Subtotal</span>
 										</div>
 										<div class="total_amount text-right">
 											<span>${{subtotal}}</span>
 										</div>
 										<div class="mini_action checkout">
-											<a class="checkout__btn" href="{%url 'cart'%}">Go to Checkout</a>
+											<a class="checkout__btn" href="{%url 'checkout'%}">Go to Checkout</a>
 										</div>
 										<div class="single__items">
 											<div class="miniproduct">

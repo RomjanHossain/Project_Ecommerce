@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cart
 from product.models import Product
+from order.models import Order
 # Create your views here.
 
 
@@ -36,3 +37,18 @@ def cart_update(request):
         request.session['cart_total'] = cart_obj.products.count()
         # return redirect(product_obj.get_absolute_url())
     return redirect("cart")
+
+
+def CheckoutView(request):
+    cart_obj, cart_created = Cart.objects.new_or_get(request)
+    product_ = cart_obj.products.all()
+    order_obj = None
+    if cart_created or cart_obj.products.count() == 0:
+        return redirect('cart')
+    else:
+        order_obj, NewOrderObj = Order.objects.get_or_create(cart=cart_obj)
+    context = {
+        'order': order_obj,
+        'object': product_
+    }
+    return render(request, 'cart/checkout.html', context)
