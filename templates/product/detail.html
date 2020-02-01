@@ -61,9 +61,15 @@
                                 <div class="box-tocart d-flex">
                                     <span>Qty</span>
                                     <input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
+                                    {%if p in cart.products.all%}
+                                    <div class="addtocart__actions">
+                                        <button class="tocart" type="submit" title="Remove">Remove</button>
+                                    </div>
+                                    {%else%}
                                     <div class="addtocart__actions">
                                         <button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
                                     </div>
+                                    {%endif%}
                                     <div class="product-addto-links clearfix">
                                         <a class="wishlist" href="#"></a>
                                         <a class="compare" href="#"></a>

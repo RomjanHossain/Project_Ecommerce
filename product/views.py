@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Product
+from cart.models import Cart
 # Create your views here.
 
 # def NewProduct(request):
@@ -43,8 +44,10 @@ def featured_view(request, pk=None, *args, **kwargs):
 
 def DeatilView(request, slug, *args, **kwargs):
     instance = get_object_or_404(Product, slug=slug)
+    cart_obj, new_obj = Cart.objects.new_or_get(request)
     context = {
-        'p': instance
+        'p': instance,
+        'cart': cart_obj
     }
     return render(request, 'product/detail.html', context)
 
