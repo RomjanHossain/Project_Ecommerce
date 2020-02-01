@@ -3,6 +3,7 @@ from .forms import ContactForm, SignInForm, Registerform
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from product.models import Product
+from cart.models import Cart
 # Create your views here.
 
 User = get_user_model()
@@ -11,10 +12,13 @@ User = get_user_model()
 def home(request):
     AllProduct = Product.objects.all()
     NewProduct = Product.objects.order_by('-times')
+    cart_obj, new_obj = Cart.objects.new_or_get(request)
+    product_ = cart_obj.products.all()
     context = {
         'title': 'Home',
         'np': NewProduct,
-        'ap': AllProduct
+        'ap': AllProduct,
+        'object': product_
     }
     return render(request, 'basic/home.html', context)
 
