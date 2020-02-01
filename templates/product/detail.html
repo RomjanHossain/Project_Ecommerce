@@ -9,7 +9,7 @@
                 <div class="bradcaump__inner text-center">
                     <h2 class="bradcaump-title">Shop Single</h2>
                     <nav class="bradcaump-content">
-                        <a class="breadcrumb_item" href="index.html">Home</a>
+                        <a class="breadcrumb_item" href="{%url 'home'%}">Home</a>
                         <span class="brd-separetor">/</span>
                         <span class="breadcrumb_item active">Shop Single</span>
                     </nav>
@@ -59,21 +59,24 @@
                                     <p>{{p.description|truncatewords:"50"}}</p>
                                 </div>
                                 <div class="box-tocart d-flex">
-                                    <span>Qty</span>
-                                    <input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
-                                    {%if p in cart.products.all%}
-                                    <div class="addtocart__actions">
-                                        <button class="tocart" type="submit" title="Remove">Remove</button>
-                                    </div>
-                                    {%else%}
-                                    <div class="addtocart__actions">
-                                        <button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
-                                    </div>
-                                    {%endif%}
-                                    <div class="product-addto-links clearfix">
-                                        <a class="wishlist" href="#"></a>
-                                        <a class="compare" href="#"></a>
-                                    </div>
+                                    <form action="{%url 'update'%}" method="POST">{%csrf_token%}
+                                        <span>Qty</span>
+                                        <input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
+                                        <input type="hidden" name="product_id" value="{{p.id}}">
+                                        {%if p in cart.products.all%}
+                                        <div class="addtocart__actions">
+                                            <button class="tocart" type="submit" title="Remove">Remove</button>
+                                        </div>
+                                        {%else%}
+                                        <div class="addtocart__actions">
+                                            <button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
+                                        </div>
+                                        {%endif%}
+                                        <div class="product-addto-links clearfix">
+                                            <a class="wishlist" href="#"></a>
+                                            <a class="compare" href="#"></a>
+                                        </div>
+                                    </form>
                                 </div>
                                 <div class="product_meta">
                                     <span class="posted_in">Categories:

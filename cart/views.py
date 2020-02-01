@@ -18,6 +18,8 @@ def cart(request):
 
 
 def cart_update(request):
+    print('this is shit but its cool!')
+    print(request.POST)
     product_id = request.POST.get('product_id')
     if product_id is not None:
         try:
