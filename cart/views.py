@@ -6,8 +6,13 @@ from product.models import Product
 
 def cart(request):
     cart_obj, new_obj = Cart.objects.new_or_get(request)
+    product_ = cart_obj.products.all()
+    total = cart_obj.total
+    subtotal = cart_obj.subtotal
     context = {
-        'cart': cart_obj
+        'object': product_,
+        'total': total,
+        'subtotal': subtotal
     }
     return render(request, 'cart/cart.html', context=context)
 
