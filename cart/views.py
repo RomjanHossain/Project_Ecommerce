@@ -10,6 +10,7 @@ def cart(request):
     total = cart_obj.total
     subtotal = cart_obj.subtotal
     context = {
+        'cart': cart_obj,
         'object': product_,
         'total': total,
         'subtotal': subtotal

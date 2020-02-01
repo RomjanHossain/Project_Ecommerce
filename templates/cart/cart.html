@@ -44,8 +44,16 @@
                                     <td class="product-name"><a href="{%url 'detail' item.slug%}">{{item.title}}</a></td>
                                     <td class="product-price"><span class="amount">${{item.price}}</span></td>
                                     <td class="product-quantity"><input type="number" value="1"></td>
-                                    <td class="product-subtotal">$50.00</td>
-                                    <td class="product-remove"><a href="#">X</a></td>
+                                    <td class="product-subtotal">${{item.price}}</td>
+                                    <form action="{%url 'update'%}" method="POST">{%csrf_token%}
+                                        <input type="hidden" name="product_id" value="{{item.id}}">
+                                        {%if item in cart.products.all%}
+
+                                        <td class="product-remove"><button type="submit" title="Remove">Remove</button></td>
+
+                                        {%endif%}
+
+                                    </form>
                                 </tr>
                                 {%endfor%}
                                 {%endif%}
