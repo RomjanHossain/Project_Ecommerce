@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # my apps
+    'phonenumber_field',
     'crispy_forms',
     'basic',
     'product',
@@ -47,6 +48,7 @@ INSTALLED_APPS = [
     'cart',
     'order',
     'billing',
+    'address',
 ]
 
 MIDDLEWARE = [

@@ -52,6 +52,10 @@ def login_form(request):
         print(username, password)
         if user is not None:
             login(request, user)
+            try:
+                del request.session['guest_email_id']
+            except:
+                pass
             print(user.is_authenticated)
             return redirect('home')
         else:
@@ -96,5 +100,5 @@ def guestform(request):
         email = form.cleaned_data.get("email")
         new_guest_email = GuestEmail.objects.create(email=email)
         request.session['guest_email_id'] = new_guest_email.id
-        return redirect("home")
-    return redirect("regi")
+        return redirect("checkout")
+    return redirect("home")
