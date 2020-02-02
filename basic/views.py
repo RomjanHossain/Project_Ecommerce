@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import ContactForm, SignInForm, Registerform
+from .forms import ContactForm, SignInForm, Registerform, GuestForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from product.models import Product
 from cart.models import Cart
+from basic.models import GuestEmail
 # Create your views here.
 
 User = get_user_model()
@@ -84,3 +85,16 @@ def logout_user(request):
 
 def test(request):
     return render(request, 'basic/test.html')
+
+
+def guestform(request):
+    form = GuestForm(request.POST or None)
+    context = {
+        "form": form
+    }
+    if form.is_valid():
+        email = form.cleaned_data.get("email")
+        new_guest_email = GuestEmail.objects.create(email=email)
+        request.session['guest_email_id'] = new_guest_email.id
+        return redirect("home")
+    return redirect("regi")

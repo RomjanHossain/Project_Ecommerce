@@ -9,6 +9,7 @@ urlpatterns = [
     path('signin/', views.login_form, name='login'),
     path('logout/', views.logout_user, name='logout'),
     path('register/', views.register, name='regi'),
+    path('guestf/', views.guestform, name='gf'),
 ]
 if settings.DEBUG:
     urlpatterns = urlpatterns + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

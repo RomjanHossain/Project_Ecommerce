@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Cart
 from product.models import Product
 from order.models import Order
+from basic.forms import SignInForm, GuestForm
+from basic.models import GuestEmail
+from billing.models import BillingProfile
+from django.contrib.auth import authenticate, login
 # Create your views here.
 
 
@@ -47,8 +51,51 @@ def CheckoutView(request):
         return redirect('cart')
     else:
         order_obj, NewOrderObj = Order.objects.get_or_create(cart=cart_obj)
+    user = request.user
+    billing_profile = None
+    login_form = SignInForm()
+    guest_form = GuestForm()
+    guest_email_id = request.session.get('guest_email_id')
+
+    if user.is_authenticated:
+        billing_profile, billing_profile_created = BillingProfile.objects.get_or_create(
+            user=user, email=user.email)
+    elif guest_email_id is not None:
+        guest_email_obj = GuestEmail.objects.get(id=guest_email_id)
+        billing_profile, billing_guest_profile_created = BillingProfile.objects.get_or_create(
+            email=guest_email_obj.email)
+    else:
+        pass
+
+    if billing_profile is not None:
+        order_qs = Order.objects.filter(billing_profile=billing_profile, cart=cart_obj, active=True)
+        if order_qs.count() == 1:
+            order_obj = order_qs.first()
+        else:
+            old_order_qs = Order.objects.exclude(
+                billing_profile=billing_profile).filter(cart=cart_obj, active=True)
+            if old_order_qs.exists():
+                old_order_qs.update(active=False)
+            order_obj = Order.objects.create(billing_profile=billing_profile, cart=cart_obj)
+
+    # if request.method == 'POST':
+    #     username = request.POST['username']
+    #     password = request.POST['password']
+    #     user = authenticate(request, username=username, password=password)
+    #     print(username, password)
+    #     if user is not None:
+    #         login(request, user)
+    #         print(user.is_authenticated)
+    #         return redirect('checkout')
+    if request.method == 'POST':
+        email = request.POST['email']
+        print(email)
+        return redirect('checkout')
     context = {
         'order': order_obj,
-        'object': product_
+        'object': product_,
+        'billing_profile': billing_profile,
+        'login_form': login_form,
+        'guest_form': guest_form
     }
     return render(request, 'cart/checkout.html', context)

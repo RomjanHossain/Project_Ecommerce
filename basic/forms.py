@@ -32,6 +32,19 @@ class ContactForm(forms.Form):
         return email
 
 
+class GuestForm(forms.Form):
+    email = forms.EmailField()
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if 'gmail.com' not in email:
+            raise forms.ValidationError("This is not gmail, bro")
+        return email
+
+        class Meta:
+            fields = ('email')
+
+
 class SignInForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
