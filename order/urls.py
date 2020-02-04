@@ -1,2 +1,5 @@
 from django.urls import path
-urlpatterns = []
+from . import views
+urlpatterns = [
+    path('conform/', views.ConformOrder, name='ConformO'),
+]

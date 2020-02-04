@@ -7,6 +7,7 @@ from basic.models import GuestEmail
 from billing.models import BillingProfile
 from django.contrib.auth import authenticate, login
 from address.forms import AddressForm
+from address.models import Address
 # Create your views here.
 
 
@@ -25,7 +26,6 @@ def cart(request):
 
 
 def cart_update(request):
-    print('this is shit but its cool!')
     print(request.POST)
     product_id = request.POST.get('product_id')
     if product_id is not None:
@@ -48,15 +48,39 @@ def CheckoutView(request):
     cart_obj, cart_created = Cart.objects.new_or_get(request)
     product_ = cart_obj.products.all()
     order_obj = None
+    billing_address_id = request.session.get("billing_address_id", None)
     if cart_created or cart_obj.products.count() == 0:
         return redirect('cart')
     login_form = SignInForm()
     guest_form = GuestForm()
-    address_form = AddressForm()
+    form = AddressForm(request.POST or None)
+    billing_form = AddressForm()
     # guest_email_id = request.session.get('guest_email_id')
     billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
     if billing_profile is not None:
-        order_obj, order_obj_created = Order.objects.new_or_get(billing_profile, cart_obj)
+        order_qs = Order.objects.filter(billing_profile=billing_profile, cart=cart_obj, active=True)
+        if order_qs.count() == 1:
+            order_obj = order_qs.first()
+        else:
+            old_order_qs = Order.objects.exclude(
+                billing_profile=billing_profile).filter(cart=cart_obj, active=True)
+            if old_order_qs.exists():
+                old_order_qs.update(active=False)
+            order_obj = Order.objects.create(billing_profile=billing_profile, cart=cart_obj)
+
+        if billing_address_id:
+            order_obj.billing_address = Address.objects.get(id=billing_address_id)
+            del request.session["billing_address_id"]
+        if billing_address_id:
+            order_obj.save()
+    if request.method == "POST":
+        "check that order is done"
+        is_done = order_obj.check_done()
+        if is_done:
+            order_obj.mark_paid()
+            request.session['cart__id'] = 0
+            del request.session['cart__id']
+            return redirect("success")
 
     context = {
         'order': order_obj,
@@ -64,6 +88,39 @@ def CheckoutView(request):
         'billing_profile': billing_profile,
         'login_form': login_form,
         'guest_form': guest_form,
-        'address_form': address_form
+        "form": form,
+        'billing_form': billing_form
     }
+    if form.is_valid():
+        print(request.POST)
+        instance = form.save(commit=False)
+        billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
+        if billing_profile is not None:
+            address_type = request.POST.get('address_type', 'billing')
+            instance.billing_profile = billing_profile
+            instance.address_type = address_type
+            instance.save()
+            request.session[address_type + "_address_id"] = instance.id
+            print(address_type + "_address_id")
+
+        else:
+            print("Error here")
+            return redirect("cart")
+    else:
+        print('this shit aint valid')
+
+    if request.method == "POST":
+        "check that order is done"
+        is_done = order_obj.check_done()
+        if is_done:
+            order_obj.mark_paid()
+            request.session['cart_total'] = 0
+            del request.session['cart_total']
+            return redirect("success")
     return render(request, 'cart/checkout.html', context)
+
+# doing checkout_viewAddress
+# def checkout_address_create_view(request):
+#
+#
+#     return render(request, 'address/form.html', context)

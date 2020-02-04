@@ -1,0 +1,8 @@
+{%load crispy_forms_tags%}
+<form action="{%url 'ConformO'%}" method="POST">
+    {%csrf_token%}
+    {{form|crispy}}
+    <div class="form__btn">
+        <button type="submit">Submit</button>
+    </div>
+</form>

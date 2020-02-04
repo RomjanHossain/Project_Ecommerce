@@ -29,6 +29,7 @@
                 <div class="wn_checkout_wrap">
                     <div class="checkout_info">
                         <span>Returning customer ?</span>
+                        {{order.order_id}}---{{order.cart}}
                         <a class="showlogin" href="#">Click here to login</a>
                     </div>
                     <div class="checkout_login">
@@ -71,17 +72,16 @@
         </div>
         <div class="row">
             <div class="col-lg-6 col-12">
+                {%if object.address_form%}
+                <h1>we have it</h1>
+                {%else%}
                 <div class="customer_details">
                     <h3>Billing details</h3>
                     <div class="customar__field account__form">
-                        {%csrf_token%}
-                        {{address_form|crispy}}
-                        <div class="form__btn">
-                            <button>Login</button>
-                            </label>
-                        </div>
+                        {%include 'address/form.html'%}
                     </div>
                 </div>
+                {%endif%}
                 <div class="customer_details mt--20">
                     <div class="differt__address">
                         <input name="ship_to_different_address" value="1" type="checkbox">

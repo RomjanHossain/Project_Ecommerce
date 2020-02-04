@@ -1,5 +1,4 @@
 from django.db import models
-from phonenumber_field.modelfields import PhoneNumberField
 from billing.models import BillingProfile
 
 ADDRESS_TYPES = (
@@ -17,8 +16,8 @@ class Address(models.Model):
     city = models.CharField(max_length=120)
     address_line_1 = models.CharField(max_length=120)
     address_line_2 = models.CharField(max_length=120, null=True, blank=True)
-    postal_code = models.DecimalField(max_digits=6, decimal_places=4)
-    phone = PhoneNumberField()
+    postal_code = models.CharField(max_length=4)
+    phone = models.CharField(max_length=11)
     email = models.EmailField(null=True, blank=True)
 
     def __str__(self):

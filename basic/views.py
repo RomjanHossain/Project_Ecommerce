@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, get_user_model, login, logout
 from product.models import Product
 from cart.models import Cart
 from basic.models import GuestEmail
+from address.forms import AddressForm
 # Create your views here.
 
 User = get_user_model()

@@ -1,7 +1,4 @@
 from django.shortcuts import render, redirect
-from django.utils.http import is_safe_url
-# CRUD create update retrieve delete
-
 from billing.models import BillingProfile
 from .forms import AddressForm
 
@@ -9,11 +6,9 @@ from .forms import AddressForm
 def checkout_address_create_view(request):
     form = AddressForm(request.POST or None)
     context = {
-        "form": form
+        "form": form,
+        'who': 'Romjan'
     }
-    next_ = request.GET.get('next')
-    next_post = request.POST.get('next')
-    redirect_path = next_ or next_post or None
     if form.is_valid():
         print(request.POST)
         instance = form.save(commit=False)
@@ -25,9 +20,4 @@ def checkout_address_create_view(request):
         else:
             print("Error here")
             return redirect("cart")
-
-        if is_safe_url(redirect_path, request.get_host()):
-            return redirect(redirect_path)
-        else:
-            return redirect("cart")
-    return redirect("checkout")
+    return render(request, 'address/form.html', context)
