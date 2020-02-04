@@ -28,7 +28,6 @@ def ConformOrder(request):
             del request.session["billing_address_id"]
         if billing_address_id:
             order_obj.save()
-    print(order_obj)
     if request.method == "POST":
         is_done = order_obj.check_done()
         if is_done:

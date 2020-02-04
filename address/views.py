@@ -20,4 +20,6 @@ def checkout_address_create_view(request):
         else:
             print("Error here")
             return redirect("cart")
+    else:
+        print('checkout form finished!')
     return render(request, 'address/form.html', context)

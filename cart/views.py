@@ -55,7 +55,7 @@ def CheckoutView(request):
     guest_form = GuestForm()
     form = AddressForm(request.POST or None)
     billing_form = AddressForm()
-    # guest_email_id = request.session.get('guest_email_id')
+    guest_email_id = request.session.get('guest_email_id')
     billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
     if billing_profile is not None:
         order_qs = Order.objects.filter(billing_profile=billing_profile, cart=cart_obj, active=True)
@@ -74,7 +74,6 @@ def CheckoutView(request):
         if billing_address_id:
             order_obj.save()
     if request.method == "POST":
-        "check that order is done"
         is_done = order_obj.check_done()
         if is_done:
             order_obj.mark_paid()
@@ -96,31 +95,15 @@ def CheckoutView(request):
         instance = form.save(commit=False)
         billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
         if billing_profile is not None:
-            address_type = request.POST.get('address_type', 'billing')
+            address_type = request.POST.get('address_type', 'shipping')
             instance.billing_profile = billing_profile
             instance.address_type = address_type
             instance.save()
             request.session[address_type + "_address_id"] = instance.id
             print(address_type + "_address_id")
-
+            return redirect('ConformO')
         else:
-            print("Error here")
             return redirect("cart")
     else:
         print('this shit aint valid')
-
-    if request.method == "POST":
-        "check that order is done"
-        is_done = order_obj.check_done()
-        if is_done:
-            order_obj.mark_paid()
-            request.session['cart_total'] = 0
-            del request.session['cart_total']
-            return redirect("success")
     return render(request, 'cart/checkout.html', context)
-
-# doing checkout_viewAddress
-# def checkout_address_create_view(request):
-#
-#
-#     return render(request, 'address/form.html', context)
