@@ -36,10 +36,11 @@ class Order(models.Model):
     order_id = models.CharField(max_length=120, blank=True)  # AVJH12V
     billing_profile = models.ForeignKey(
         BillingProfile,  on_delete=models.CASCADE, null=True, blank=True)
-    # shipping_address
     billing_address = models.ForeignKey(
         Address, related_name="billing_address", on_delete=models.CASCADE, null=True, blank=True)
-    # total = models.DecimalField(default=0.00, max_digits=100000, decimal_places=2)
+    shipping_address = models.ForeignKey(
+        Address, related_name="shipping_address",  on_delete=models.CASCADE,  null=True, blank=True)
+    total = models.DecimalField(default=0.00, max_digits=100000, decimal_places=2)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
     status = models.CharField(max_length=120, default='Created', choices=ORDER_STATUS_CHOICES)
@@ -63,9 +64,9 @@ class Order(models.Model):
 
     def check_done(self):
         billing_profile = self.billing_profile
-        billing_address = self.billing_address
+        shipping_address = self.shipping_address
         total = self.total
-        if billing_profile and billing_address and total > 0:
+        if billing_profile and shipping_address and total > 0:
             return True
         return False
 

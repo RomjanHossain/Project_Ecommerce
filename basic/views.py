@@ -103,3 +103,7 @@ def guestform(request):
         request.session['guest_email_id'] = new_guest_email.id
         return redirect("checkout")
     return redirect("home")
+
+
+def SuccessPage(request):
+    return render(request, 'basic/success.html', {})
