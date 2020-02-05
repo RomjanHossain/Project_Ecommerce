@@ -1,0 +1,63 @@
+{%load crispy_forms_tags%}
+{%if address_qs.exists %}
+<div class="customer_details">
+    <h3>Your previous detail</h3>
+    <form method="POST" action="{{action_url}}">{%csrf_token%}
+        {% if address_type %}
+        <input type='hidden' name='address_type' value='{{ address_type }}' />
+        {% endif %}
+        <div class="customer_details">
+            <div class="account__form">
+                <!-- here goes the fucking is_authenticated user form  -->
+                {%for address in address_qs %}
+                <div class="customar__field">
+                    <div class="input_box">
+                        <label>Full name <span>*</span></label>
+                        <input type="text" value="{{address.full_name}}">
+                    </div>
+                    <div class="margin_between">
+                        <div class="input_box space_between">
+                            <label>Country <span>*</span></label>
+                            <input type="text" value="{{address.country}}">
+                        </div>
+                        <div class="input_box space_between">
+                            <label>City<span>*</span></label>
+                            <input type="text" value="{{address.city}}">
+                        </div>
+                    </div>
+                    <div class="input_box">
+                        <label>Address line 1 <span>*</span></label>
+                        <input type="text" value="{{address.address_line_1}}">
+                    </div>
+                    <div class="input_box">
+                        <label>Address line 2 <span>*</span></label>
+                        <input type="text" value="{{address.address_line_2}}">
+                    </div>
+                    <div class="input_box">
+                        <label>Postcode / ZIP <span>*</span></label>
+                        <input type="text" value="{{address.postal_code}}">
+                    </div>
+                    <div class="margin_between">
+                        <div class="input_box space_between">
+                            <label>Phone <span>*</span></label>
+                            <input type="text" value="{{address.phone}}">
+                        </div>
+                        <div class="input_box space_between">
+                            <label>Email address <span>*</span></label>
+                            <input type="email" value="{{address.email}}">
+                        </div>
+                    </div>
+                </div>
+                <label for='address-{{ address.id }}'>
+                    <input id='address-{{ address.id }}' type='radio' name='shipping_address' value='{{ address.id }}' />
+                    Use This
+                </label><br />
+                {%endfor%}
+                <div class="form__btn">
+                    <button type="submit">Use Address</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{%endif%}

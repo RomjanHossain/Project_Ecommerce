@@ -152,78 +152,10 @@
             </div>
             <div class="col-lg-6 col-12 md-mt-40 sm-mt-40">
                 <div class="wn__order__box">
-                    <h3 class="onder__title">Your order</h3>
-                    <ul class="order__total">
-                        <li>Product</li>
-                        <li>Total</li>
-                    </ul>
-                    <ul class="order_product">
-                        {%for i in object%}
-                        <li>{{i.title}} × 1<span>${{i.price}}</span></li>
-                        {%endfor%}
-                    </ul>
-                    <ul class="shipping__method">
-                        <li>Cart Subtotal <span>${{order.cart.total}}</span></li>
-                        <li>Shipping
-                            <ul>
-                                <li>
-                                    <input name="shipping_method[0]" data-index="0" value="legacy_flat_rate" checked="checked" type="radio">
-                                    <label>Flat Rate: ${{order.shipping_total}}</label>
-                                </li>
-                                <li>
-                                    <input name="shipping_method[0]" data-index="0" value="legacy_flat_rate" checked="checked" type="radio">
-                                    <label>Flat Rate: $48.00</label>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <ul class="total__amount">
-                        <li>Order Total <span>${{order.total}}</span></li>
-                    </ul>
+                    <!-- here goes the fucking is_authenticated user form  -->
+                        {% url 'reuse' as checkout_address_reuse%}
+                        {%include 'address/prevAddress.html' with address_qs=address_qs address_type='shipping' action_url=checkout_address_reuse%}
                 </div>
-                <div id="accordion" class="checkout_accordion mt--30" role="tablist">
-                    <div class="payment">
-                        <div class="che__header" role="tab" id="headingOne">
-                            <a class="checkout__title" data-toggle="collapse" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                <span>Direct Bank Transfer</span>
-                            </a>
-                        </div>
-                        <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" data-parent="#accordion">
-                            <div class="payment-body">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</div>
-                        </div>
-                    </div>
-                    <div class="payment">
-                        <div class="che__header" role="tab" id="headingTwo">
-                            <a class="collapsed checkout__title" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                <span>Cheque Payment</span>
-                            </a>
-                        </div>
-                        <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
-                            <div class="payment-body">Please send your cheque to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</div>
-                        </div>
-                    </div>
-                    <div class="payment">
-                        <div class="che__header" role="tab" id="headingThree">
-                            <a class="collapsed checkout__title" data-toggle="collapse" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                <span>Cash on Delivery</span>
-                            </a>
-                        </div>
-                        <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-parent="#accordion">
-                            <div class="payment-body">Pay with cash upon delivery.</div>
-                        </div>
-                    </div>
-                    <div class="payment">
-                        <div class="che__header" role="tab" id="headingFour">
-                            <a class="collapsed checkout__title" data-toggle="collapse" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                                <span>PayPal <img src="{% static 'images/icons/payment.png'%}" alt="payment images"> </span>
-                            </a>
-                        </div>
-                        <div id="collapseFour" class="collapse" role="tabpanel" aria-labelledby="headingFour" data-parent="#accordion">
-                            <div class="payment-body">Pay with cash upon delivery.</div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>

@@ -56,16 +56,6 @@ def CheckoutView(request):
     billing_form = AddressForm()
     guest_email_id = request.session.get('guest_email_id')
     billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
-
-    context = {
-        'order': order_obj,
-        'object': product_,
-        'billing_profile': billing_profile,
-        'login_form': login_form,
-        'guest_form': guest_form,
-        "form": form,
-        'billing_form': billing_form
-    }
     if form.is_valid():
         print(request.POST)
         instance = form.save(commit=False)
@@ -84,8 +74,11 @@ def CheckoutView(request):
         print('this shit aint valid')
 
     shipping_address_id = request.session.get("shipping_address_id", None)
-    print(shipping_address_id)
+    address_qs = None
     if billing_profile is not None:
+        if request.user.is_authenticated:
+            address_qs = Address.objects.filter(billing_profile=billing_profile)
+
         order_qs = Order.objects.filter(billing_profile=billing_profile, cart=cart_obj, active=True)
         if order_qs.count() == 1:
             order_obj = order_qs.first()
@@ -100,5 +93,16 @@ def CheckoutView(request):
             order_obj.shipping_address = Address.objects.get(id=shipping_address_id)
             del request.session["shipping_address_id"]
             order_obj.save()
+
+    context = {
+        'order': order_obj,
+        'object': product_,
+        'billing_profile': billing_profile,
+        'login_form': login_form,
+        'guest_form': guest_form,
+        "form": form,
+        'billing_form': billing_form,
+        'address_qs': address_qs
+    }
 
     return render(request, 'cart/checkout.html', context)
