@@ -168,6 +168,7 @@
 										<div class="micart__close">
 											<span>close</span>
 										</div>
+										{%if object%}
 										<div class="items-total d-flex justify-content-between">
 											<span>{{request.session.cart_total}} items</span>
 											<span>Cart Subtotal</span>
@@ -178,6 +179,7 @@
 										<div class="mini_action checkout">
 											<a class="checkout__btn" href="{%url 'checkout'%}">Go to Checkout</a>
 										</div>
+
 										<div class="single__items">
 											<div class="miniproduct">
 												<!-- start -->
@@ -187,7 +189,7 @@
 														<a href="{%url 'detail' o.slug%}"><img src="{{o.image.url}}" alt="product images"></a>
 													</div>
 													<div class="content">
-														<h6><a href="product-details.html">{{o.title}}</a></h6>
+														<h6><a href="{%url 'detail' o.slug%}">{{o.title}}</a></h6>
 														<span class="prize">${{o.price}}</span>
 														<div class="product_prize d-flex justify-content-between">
 															<span class="qun">Qty: 01</span>
@@ -201,7 +203,10 @@
 												{%endfor%}
 												<!-- end -->
 											</div>
+											{%else%}
+											<h4>No product Here</h4>
 										</div>
+										{%endif%}
 										<div class="mini_action cart">
 											<a class="cart__btn" href="{%url 'cart'%}">View and edit cart</a>
 										</div>
@@ -961,7 +966,7 @@
 				</div>
 				<!-- End Single Tab Content -->
 			</div>
-		</div>
+	</div>
 	</section>
 	<!-- Start BEst Seller Area -->
 	<!-- Start Recent Post Area -->
@@ -1516,6 +1521,45 @@
 		}
 	</script>
 
+
+
+	<!-- Using own jquery -->
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var productForm = $(".FormProductAjax")
+			productForm.submit(function(event) {
+				event.preventDefault();
+				//console.log('form is not sending!')
+				var thisForm = $(this)
+				var actionEndpoint = thisForm.attr('action');
+				var httpmethod = thisForm.attr('method');
+				var formData = thisForm.serialize();
+				$.ajax({
+					url: actionEndpoint,
+					method: httpmethod,
+					data: formData,
+					success: function(data) {
+						console.log('sucess')
+						console.log(data)
+						var submitSpan = thisForm.find('.addtocart__actions')
+						console.log(submitSpan.html())
+						if (data.added) {
+							submitSpan.html('<button class="tocart" type="submit" title="Remove">Remove</button>')
+						} else {
+							submitSpan.html('<button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>')
+						}
+						var navbarCount = $('.product_qun')
+						navbarCount.text(data.cartItemCount)
+					},
+					error: function(errorData) {
+						console.log('error')
+						console.log(errorData)
+					}
+				})
+			})
+		})
+	</script>
 </body>
 
 </html>

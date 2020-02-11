@@ -1,6 +1,6 @@
 /*********************************************************************************
 
-    Template Name: Boighor Bookshop Responsive Bootstrap4 Template 
+    Template Name:  Responsive Bootstrap4 Template
     Version: 1.0
 
 **********************************************************************************/
@@ -43,7 +43,7 @@
 (function($) {
     'use strict';
 
-    
+
 
 /*============ Scroll Up Activation ============*/
     $.scrollUp({
@@ -115,7 +115,7 @@
               breakpoint: 576,
               settings: {
                 dots: false,
-                slidesToShow: 1,  
+                slidesToShow: 1,
                 centerPadding: '0px',
                 }
             },
@@ -259,7 +259,7 @@
             }
         }
     });
-  
+
 
 /*=============  Product Activation  ==============*/
     $('.furniture--4').owlCarousel({
@@ -475,7 +475,7 @@
     });
 
 
-/*====== Price Slider Active ======*/ 
+/*====== Price Slider Active ======*/
     $('#slider-range').slider({
         range: true,
         min: 10,
@@ -492,7 +492,7 @@
 /*====== Dropdown ======*/
     $('.dropdown').parent('.drop').css('position' , 'relative');
 
-	
+
 /*====== slick slider ======*/
 	$('.center').slick({
 	  centerMode: true,
@@ -546,5 +546,5 @@
 	});
 
 
-})(jQuery);
 
+})(jQuery);

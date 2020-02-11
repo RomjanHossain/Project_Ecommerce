@@ -59,19 +59,22 @@
                                     <p>{{p.description|truncatewords:"50"}}</p>
                                 </div>
                                 <div class="box-tocart d-flex">
-                                    <form action="{%url 'update'%}" method="POST">{%csrf_token%}
+                                    <form class="FormProductAjax" action="{%url 'update'%}" method="POST" data-endpoint='{%url "update"%}'>
+                                        {%csrf_token%}
                                         <span>Qty</span>
                                         <input id="qty" class="input-text qty" name="qty" min="1" value="1" title="Qty" type="number">
                                         <input type="hidden" name="product_id" value="{{p.id}}">
-                                        {%if p in cart.products.all%}
-                                        <div class="addtocart__actions">
-                                            <button class="tocart" type="submit" title="Remove">Remove</button>
-                                        </div>
-                                        {%else%}
-                                        <div class="addtocart__actions">
-                                            <button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
-                                        </div>
-                                        {%endif%}
+                                        <span class="submit-span">
+                                            {%if p in cart.products.all%}
+                                            <div class="addtocart__actions">
+                                                <button class="tocart" type="submit" title="Remove">Remove</button>
+                                            </div>
+                                            {%else%}
+                                            <div class="addtocart__actions">
+                                                <button class="tocart" type="submit" title="Add to Cart">Add to Cart</button>
+                                            </div>
+                                            {%endif%}
+                                        </span>
                                         <div class="product-addto-links clearfix">
                                             <a class="wishlist" href="#"></a>
                                             <a class="compare" href="#"></a>

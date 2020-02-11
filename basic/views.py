@@ -20,7 +20,8 @@ def home(request):
         'title': 'Home',
         'np': NewProduct,
         'ap': AllProduct,
-        'object': product_
+        'object': product_,
+        'cart': cart_obj
     }
     return render(request, 'basic/home.html', context)
 

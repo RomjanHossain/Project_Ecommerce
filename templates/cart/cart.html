@@ -23,9 +23,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12 ol-lg-12">
+                {%if cart.products.exists%}
                 <form action="#">
+                    {%csrf_token%}
                     <div class="table-content wnro__table table-responsive">
-                        <table>
+
+                        <table class="cart-table">
                             <thead>
                                 <tr class="title-top">
                                     <th class="product-thumbnail">Image</th>
@@ -36,7 +39,7 @@
                                     <th class="product-remove">Remove</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="cart-body">
                                 {%if object%}
                                 {%for item in object%}
                                 <tr>
@@ -48,9 +51,7 @@
                                     <form action="{%url 'update'%}" method="POST">{%csrf_token%}
                                         <input type="hidden" name="product_id" value="{{item.id}}">
                                         {%if item in cart.products.all%}
-
                                         <td class="product-remove"><button style="padding: 0;border: none;background: none;font-size : 20px;" type="submit" title="Remove">X</button></td>
-
                                         {%endif%}
 
                                     </form>
@@ -70,6 +71,9 @@
                     </ul>
                 </div>
             </div>
+            {%else%}
+            <h1>Cart is empty</h1>
+            {%endif%}
         </div>
         <div class="row">
             <div class="col-lg-6 offset-lg-6">
