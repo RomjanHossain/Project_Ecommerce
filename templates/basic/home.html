@@ -1532,7 +1532,7 @@
 				event.preventDefault();
 				//console.log('form is not sending!')
 				var thisForm = $(this)
-				var actionEndpoint = thisForm.attr('action');
+				var actionEndpoint = thisForm.attr('data-endpoint');
 				var httpmethod = thisForm.attr('method');
 				var formData = thisForm.serialize();
 				$.ajax({
@@ -1551,6 +1551,11 @@
 						}
 						var navbarCount = $('.product_qun')
 						navbarCount.text(data.cartItemCount)
+						var currentPath = window.location.href
+						// console.log(currentPath)
+						if (currentPath.indexOf('cart') != -1) {
+							refreshCart()
+						}
 					},
 					error: function(errorData) {
 						console.log('error')
@@ -1558,6 +1563,61 @@
 					}
 				})
 			})
+
+			function refreshCart() {
+				console.log('in current cart')
+				var taka = $('.amountChange')
+				var cartTable = $('.cart-table')
+				var cartBody = cartTable.find('.cart-body')
+				// cartBody.html('<h1>Changed</h1>') <= this works
+				var productRows = cartBody.find(".cart-product")
+				// productRows.html('<tr><td>Coming Soon</td></tr>') <== this works too
+				var currentUrl = window.location.href
+
+				var refreshCartUrl = '/api/cart/'
+				var refreshCartMethod = 'GET';
+				var data = {};
+				$.ajax({
+					url: refreshCartUrl,
+					method: refreshCartMethod,
+					data: data,
+					success: function(data) {
+						var hiddenCartItemRemoveForm =$('.cart-item-remove-form')
+						console.log('success')
+						console.log(data)
+						if (data.products.length > 0){
+							productRows.html('') //<= this not works , shit
+							$.each(data.products, function(index, value){
+								console.log(value)
+								var newCartItemRemove = hiddenCartItemRemoveForm.clone() //cart-item-productId
+								console.log(newCartItemRemove)
+								newCartItemRemove.css('display','block')
+								newCartItemRemove.find('.cart-item-productId').val(value.id)
+								cartBody.prepend("<tr>"+
+								'<td class="product-thumbnail"><a href="'+value.url+'"><img src="'+value.image+'" alt="product img"></a></td>'+
+								'<td class="product-name"><a href="'+value.url+'">'+value.name+'</a></td>'
+								+
+								"<td class='product-price'>"
+								+value.price+"</td>"+
+								"<td><input type='number' value='1'>"+"</td>"+
+								"<td class='product-price'>"
+								+value.price+"</td>"+
+								newCartItemRemove.html()
+								+"</td>"+"</tr>")
+							})
+							// cartBody.prepend('<tr><td>Coming Soon</td></tr>')
+							taka.find('.cart-subtotal').text(data.subtotal)
+							taka.find('.cart-total').text(data.total)
+						} else {
+							window.location.href = currentUrl
+						}
+					},
+					error: function(errorData) {
+						console.log('errorData')
+						console.log(errorData)
+					}
+				})
+			}
 		})
 	</script>
 </body>

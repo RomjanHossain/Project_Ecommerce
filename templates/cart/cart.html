@@ -24,10 +24,9 @@
         <div class="row">
             <div class="col-md-12 col-sm-12 ol-lg-12">
                 {%if cart.products.exists%}
-                <form action="#">
+                <form action="{%url 'update'%}" data-endpoint='{%url "update"%}' class="FormProductAjax">
                     {%csrf_token%}
                     <div class="table-content wnro__table table-responsive">
-
                         <table class="cart-table">
                             <thead>
                                 <tr class="title-top">
@@ -40,26 +39,22 @@
                                 </tr>
                             </thead>
                             <tbody class="cart-body">
-                                {%if object%}
-                                {%for item in object%}
-                                <tr>
-                                    <td class="product-thumbnail"><a href="#"><img src="{{item.image.url}}" alt="product img"></a></td>
-                                    <td class="product-name"><a href="{%url 'detail' item.slug%}">{{item.title}}</a></td>
-                                    <td class="product-price"><span class="amount">${{item.price}}</span></td>
-                                    <td class="product-quantity"><input type="number" value="1"></td>
-                                    <td class="product-subtotal">${{item.price}}</td>
-                                    <form action="{%url 'update'%}" method="POST">{%csrf_token%}
-                                        <input type="hidden" name="product_id" value="{{item.id}}">
-                                        {%if item in cart.products.all%}
-                                        <td class="product-remove"><button style="padding: 0;border: none;background: none;font-size : 20px;" type="submit" title="Remove">X</button></td>
-                                        {%endif%}
+                                    {%for item in cart.products.all%}
+                                    <tr class="cart-product">
+                                        <td class="product-thumbnail"><a href="{{item.get_absolute_url}}"><img src="{{item.image.url}}" alt="product img"></a></td>
+                                        <td class="product-name"><a href="{%url 'detail' item.slug%}">{{item.title}}</a></td>
+                                        <td class="product-price"><span class="amount">${{item.price}}</span></td>
+                                        <td class="product-quantity"><input type="number" value="1"></td>
+                                        <td class="product-subtotal">${{item.price}}</td>
+                                        {%include 'product/snippets/update-cart.html' with item=item cart=cart%}
+                                    </tr>
+                                    {%endfor%}
 
-                                    </form>
-                                </tr>
-                                {%endfor%}
-                                {%endif%}
                             </tbody>
                         </table>
+                        <div class="cart-item-remove-form" style="display:none;">
+                            {%include 'product/snippets/update-cart.html' with item=item%}
+                        </div>
                     </div>
                 </form>
                 <div class="cartbox__btn">
@@ -75,6 +70,9 @@
             <h1>Cart is empty</h1>
             {%endif%}
         </div>
+        <div class="amountChange">
+
+
         <div class="row">
             <div class="col-lg-6 offset-lg-6">
                 <div class="cartbox__total__area">
@@ -84,17 +82,19 @@
                             <li>Sub Total</li>
                         </ul>
                         <ul class="cart__total__tk">
-                            <li>${{subtotal}}</li>
-                            <li>$10</li>
+                            <span class="cart-subtotal"><li>${{subtotal}}</li></span>
+                            <span><li>$10</li></span>
+
                         </ul>
                     </div>
                     <div class="cart__total__amount">
                         <span>Grand Total</span>
-                        <span>${{total}}</span>
+                        <span class="cart-total">${{total}}</span>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>
 <!-- cart-main-area end -->

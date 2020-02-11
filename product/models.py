@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 import datetime
 from .utils import upload_image_path, unique_slug_generator
 from django.db.models.signals import pre_save, post_save
@@ -20,6 +21,9 @@ class Product(models.Model):
 
     def was_published_recently(self):
         return self.times >= timezone.now()-datetime.timedelta(days=1)
+
+    def get_absolute_url(self):
+        return reverse("detail", kwargs={"slug": self.slug})
 
     def __str__(self):
         return self.title
