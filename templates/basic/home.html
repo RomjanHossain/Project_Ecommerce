@@ -1588,11 +1588,12 @@
 						if (data.products.length > 0){
 							productRows.html('') //<= this not works , shit
 							$.each(data.products, function(index, value){
-								console.log(value)
+								// console.log(value)
 								var newCartItemRemove = hiddenCartItemRemoveForm.clone() //cart-item-productId
-								console.log(newCartItemRemove)
+								// console.log(newCartItemRemove.find('.cart-item-productId').val(value.id))
 								newCartItemRemove.css('display','block')
 								newCartItemRemove.find('.cart-item-productId').val(value.id)
+								// console.log(newCartItemRemove.find('.cart-item-productId').val(value.id).html())
 								cartBody.prepend("<tr>"+
 								'<td class="product-thumbnail"><a href="'+value.url+'"><img src="'+value.image+'" alt="product img"></a></td>'+
 								'<td class="product-name"><a href="'+value.url+'">'+value.name+'</a></td>'
@@ -1601,8 +1602,8 @@
 								+value.price+"</td>"+
 								"<td><input type='number' value='1'>"+"</td>"+
 								"<td class='product-price'>"
-								+value.price+"</td>"+
-								newCartItemRemove.html()
+								+value.price+"</td>"+"<td>"+
+								newCartItemRemove.html()+"F</td>"
 								+"</td>"+"</tr>")
 							})
 							// cartBody.prepend('<tr><td>Coming Soon</td></tr>')

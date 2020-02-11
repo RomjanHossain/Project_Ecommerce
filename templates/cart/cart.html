@@ -46,14 +46,14 @@
                                         <td class="product-price"><span class="amount">${{item.price}}</span></td>
                                         <td class="product-quantity"><input type="number" value="1"></td>
                                         <td class="product-subtotal">${{item.price}}</td>
-                                        {%include 'product/snippets/update-cart.html' with item=item cart=cart%}
+                                        {%include 'product/snippets/update-cart.html'  with product_id=item.id%}
                                     </tr>
                                     {%endfor%}
 
                             </tbody>
                         </table>
-                        <div class="cart-item-remove-form" style="display:none;">
-                            {%include 'product/snippets/update-cart.html' with item=item%}
+                        <div class="cart-item-remove-form" style="display:none">
+                            {%include 'product/snippets/update-cart.html' %}
                         </div>
                     </div>
                 </form>

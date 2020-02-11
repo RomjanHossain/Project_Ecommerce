@@ -19,7 +19,7 @@ def cart_detail_api_view(request):
     products = [
         {'name': i.title,
          'price': i.price,
-         'id': i.id,
+         "id": i.id,
          'image': i.image.url,
          'url': i.get_absolute_url(),
          # 'vieW': returnSlugView(i.slug)

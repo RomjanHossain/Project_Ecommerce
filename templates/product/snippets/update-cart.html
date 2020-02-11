@@ -1,0 +1,5 @@
+<form class="FormProductAjax" action="{%url 'update'%}" data-endpoint='{%url "update"%}' method="POST">
+    {%csrf_token%}
+    <input class='cart-item-productId' type='hidden' name='product_id' value='{{ product_id }}' />
+    <td class="product-remove"><button style="padding: 0;border: none;background: none;font-size : 20px;" type="submit" title="Remove">X</button></td>
+</form>
