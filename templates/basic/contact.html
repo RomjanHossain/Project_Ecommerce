@@ -35,7 +35,7 @@
 				<div class="contact-form-wrap">
 					<h2 class="contact__title">Get in touch</h2>
 					<p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. </p>
-					<form method="POST">
+					<form class="contact-form" method="POST" action="{%url 'contact'%}">
 
 						{%csrf_token%}
 						{%if form.errors%}

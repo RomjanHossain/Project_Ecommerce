@@ -31,6 +31,9 @@ class ContactForm(forms.Form):
             raise forms.ValidationError("This is not gmail, bro")
         return email
 
+    def clean_content(self):
+        raise forms.ValidationError("Contact form Error!")
+
 
 class GuestForm(forms.Form):
     email = forms.EmailField()

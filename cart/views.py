@@ -31,7 +31,8 @@ def cart_detail_api_view(request):
         'subtotal': cart_obj.subtotal,
         'total': cart_obj.total
     }
-    return JsonResponse(cart_data)
+    return JsonResponse(cart_data, status=200)
+    # return JsonResponse({'message': "Error 404"}, status=400)
 
 
 def cart(request):

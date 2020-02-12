@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse, HttpResponse
 from .forms import ContactForm, SignInForm, Registerform, GuestForm
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
@@ -39,6 +40,14 @@ def contact(request):
     context = {
         'form': contact_form
     }
+    if contact_form.is_valid():
+        print(contact_form.cleaned_data)
+        if request.is_ajax():
+            return JsonResponse({'message': 'Thank You for your submission!'})
+    if contact_form.errors:
+        errors = contact_form.errors.as_json()
+        if request.is_ajax():
+            return HttpResponse(errors, status=400, content_type='application/json')
     return render(request, 'basic/contact.html', context)
 
 
