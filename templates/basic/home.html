@@ -431,7 +431,7 @@
 								<div class="action">
 									<div class="actions_inner">
 										<ul class="add_to_links">
-											<li><a class="cart" href="cart.html"><i class="bi bi-shopping-bag4"></i></a></li>
+											<li>{%include 'product/snippets/remove.html' with cart=cart i=i%}</li>
 											<li><a class="wishlist" href="wishlist.html"><i class="bi bi-shopping-cart-full"></i></a></li>
 											<li><a class="compare" href="#"><i class="bi bi-heart-beat"></i></a></li>
 											<li><a data-toggle="modal" title="Quick View" class="quickview modal-view detail-link" href="#productmodal"><i class="bi bi-search"></i></a></li>
@@ -1600,10 +1600,10 @@
 								+
 								"<td class='product-price'>"
 								+value.price+"</td>"+
-								"<td><input type='number' value='1'>"+"</td>"+
+								"<td class='product-quantity'><input type='number' value='1'>"+"</td>"+
 								"<td class='product-price'>"
 								+value.price+"</td>"+"<td>"+
-								newCartItemRemove.html()+"F</td>"
+								newCartItemRemove.html()+"</td>"
 								+"</td>"+"</tr>")
 							})
 							// cartBody.prepend('<tr><td>Coming Soon</td></tr>')

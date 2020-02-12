@@ -1,5 +1,11 @@
-<form class="FormProductAjax" action="{%url 'update'%}" data-endpoint='{%url "update"%}' method="POST">
+<form class="FormProductAjax" action="{%url 'update'%}" method="POST" data-endpoint='{%url "update"%}'>
     {%csrf_token%}
-    <input type="hidden" name="product_id" value="{{item.id}}">
-    <td class="product-remove"><button style="padding: 0;border: none;background: none;font-size : 20px;" type="submit" title="Remove">X</button></td>
+    <input type="hidden" name="product_id" value="{{i.id}}">
+        {%if i in cart.products.all%}
+        {{pass}}
+        {%else%}
+        <div class="addtocart__actions">
+            <button style="padding: 0;border: none;background: none;" class="tocart" type="submit" title="Add to Cart"><a class="cart" href="#"><i class="bi bi-shopping-bag4"></i></a></button>
+        </div>
+        {%endif%}
 </form>
