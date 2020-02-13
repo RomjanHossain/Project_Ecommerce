@@ -6,9 +6,11 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('about/', views.about, name='about'),
     path('contact/', views.contact, name='contact'),
-    path('signin/', views.login_form, name='login'),
+    # path('signin/', views.login_form, name='login'),
+    path('signin/', views.LoginView.as_view(), name='login'),
     path('logout/', views.logout_user, name='logout'),
-    path('register/', views.register, name='regi'),
+    #    path('register/', views.register, name='regi'),
+    path('register/', views.RegisterView.as_view(), name='regi'),
     path('guestf/', views.guestform, name='gf'),
     path('success/', views.SuccessPage, name='success'),
 ]
