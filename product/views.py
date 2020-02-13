@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Product
 from cart.models import Cart
+from analytics.signals import object_viewed_signal
 # Create your views here.
 
 # def NewProduct(request):
@@ -31,6 +32,7 @@ def featured_view(request, pk=None, *args, **kwargs):
     context = {
         'object': obj
     }
+    object_viewed_signal.send(instance.__class__, instance=obj, request=request)
     return render(request, 'product/detail.html', context)
 
 
@@ -49,6 +51,7 @@ def DeatilView(request, slug, *args, **kwargs):
         'p': instance,
         'cart': cart_obj
     }
+    object_viewed_signal.send(instance.__class__, instance=instance, request=request)
     return render(request, 'product/detail.html', context)
 
 
@@ -57,4 +60,5 @@ def QuickView(request, slug, *args, **kwargs):
     context = {
         'p': instance
     }
+    object_viewed_signal.send(instance.__class__, instance=instance, request=request)
     return render(request, 'product/quickview.html', context)
