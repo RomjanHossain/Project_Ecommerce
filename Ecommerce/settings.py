@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+AUTH_USER_MODEL = 'basic.User'  # change the builtin user to Ours!
 
 INSTALLED_APPS = [
     'django.contrib.admin',

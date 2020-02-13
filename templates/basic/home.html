@@ -143,6 +143,7 @@
 											<li><a href="{%url 'cart'%}">Cart Page</a></li>
 											<li><a href="{%url 'checkout'%}">Checkout Page</a></li>
 											<li><a href="wishlist.html">Wishlist Page</a></li>
+											<li><a href="error404.html">404 Page</a></li>
 											<li><a href="faq.html">Faq Page</a></li>
 											<li><a href="team.html">Team Page</a></li>
 										</ul>
@@ -171,7 +172,9 @@
 										<div class="micart__close">
 											<span>close</span>
 										</div>
-										{%if object%}
+										{%if not object%}
+										<h4>No product Here</h4>
+										{%else%}
 										<div class="items-total d-flex justify-content-between">
 											<span>{{request.session.cart_total}} items</span>
 											<span>Cart Subtotal</span>
@@ -182,7 +185,6 @@
 										<div class="mini_action checkout">
 											<a class="checkout__btn" href="{%url 'checkout'%}">Go to Checkout</a>
 										</div>
-
 										<div class="single__items">
 											<div class="miniproduct">
 												<!-- start -->
@@ -206,13 +208,11 @@
 												{%endfor%}
 												<!-- end -->
 											</div>
-											{%else%}
-											<h4>No product Here</h4>
+										</div>
+										<div class="mini_action cart">
+											<a class="cart__btn" href="cart.html">View and edit cart</a>
 										</div>
 										{%endif%}
-										<div class="mini_action cart">
-											<a class="cart__btn" href="{%url 'cart'%}">View and edit cart</a>
-										</div>
 									</div>
 								</div>
 								<!-- End Shopping Cart -->
@@ -233,9 +233,9 @@
 														<span><a href="{%url 'regi'%}">Create An Account</a></span>
 														<span><a href="{%url 'login'%}">Sign In</a></span>
 														{%endif%}
-														<!-- <span><a href="#">Compare Product</a></span>
+														<span><a href="#">Compare Product</a></span>
 														<span><a href="#">My Account</a></span>
-														<span><a href="#">My Wishlist</a></span> -->
+														<span><a href="#">My Wishlist</a></span>
 													</div>
 												</div>
 											</div>
@@ -286,7 +286,6 @@
 												</div>
 											</div>
 										</div>
-
 									</div>
 								</div>
 							</li>
@@ -298,10 +297,10 @@
 					<div class="col-lg-12 d-none">
 						<nav class="mobilemenu__nav">
 							<ul class="meninmenu">
-								<li><a href="{%url 'home'%}">Home</a></li>
+								<li><a href="index.html">Home</a></li>
 								<li><a href="#">Pages</a>
 									<ul>
-										<li><a href="{%url 'about'%}">About Page</a></li>
+										<li><a href="about.html">About Page</a></li>
 										<li><a href="portfolio.html">Portfolio</a>
 											<ul>
 												<li><a href="portfolio.html">Portfolio</a></li>
@@ -329,7 +328,7 @@
 										<li><a href="blog-details.html">Blog Details</a></li>
 									</ul>
 								</li>
-								<li><a href="{%url 'contact'%}">Contact</a></li>
+								<li><a href="contact.html">Contact</a></li>
 							</ul>
 						</nav>
 					</div>
@@ -1536,4 +1535,5 @@
 	<script src="{%static 'js/csrf.js'%}">
 	</script>
 </body>
+
 </html>
