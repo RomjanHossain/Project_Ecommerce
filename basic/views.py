@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import CreateView, FormView
 from django.http import JsonResponse, HttpResponse
 from .forms import ContactForm, SignInForm, RegisterForm, GuestForm
+from .signals import user_logged_in
 from django.contrib import messages
 from django.contrib.auth import authenticate, get_user_model, login, logout
 from product.models import Product
@@ -94,6 +95,7 @@ class LoginView(FormView):
         user = authenticate(request, username=email, password=password)
         if user is not None:
             login(request, user)
+            user_logged_in.send(user.__class__, instance=user, request=request)
             try:
                 del request.session['guest_email_id']
             except:

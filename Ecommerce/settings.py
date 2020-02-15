@@ -28,7 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+# fokinni
+FORCE_SESSION_TO_ONE = False
+FORCE_INACTIVE_USER_ENDSESSION = False
 # Application definition
 AUTH_USER_MODEL = 'basic.User'  # change the builtin user to Ours!
 
@@ -39,6 +41,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # bKash payment , Bitch!
+    # 'bKash_payment',
+    # rest frameword
+    'rest_framework',
     # my apps
     'crispy_forms',
     'basic',
@@ -50,8 +56,15 @@ INSTALLED_APPS = [
     'billing',
     'address',
     'analytics',
+    'marketting',
 ]
 
+
+# mail champ
+MAILCHIMP_API_KEY = "8c5ee45327e3c88d7e5d823a0d80df97-us4"
+MAILCHIMP_DATA_CENTER = "us4"
+MAILCHIMP_EMAIL_LIST_ID = "2b036d9ada"
+# finished
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
