@@ -1,0 +1,22 @@
+{%load static%}
+{%load crispy_forms_tags%}
+{% if messages %}
+<div>
+    {% for message in messages %}
+    <span>{% if message.tags %} {% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        {{ message }}<br>
+    </span>
+    {% endfor %}
+</div>
+{% endif %}
+<h1>woh teh f aer yuo</h1>
+<form method="POST" action="{%if action_url%}{{action_url}}{%endif%}">
+    {%csrf_token%}
+    <div class="account__form">
+        {{form|crispy}}
+        <div class="form__btn">
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+</form>
