@@ -26,7 +26,7 @@ SECRET_KEY = 'ry@eqo5b!(e+_yvgg5y59lse*-$66^z2g-_yx64+*sl21m(93r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.herokuapp.com']
 
 # fokinni
 FORCE_SESSION_TO_ONE = False
