@@ -27,7 +27,7 @@ SECRET_KEY = 'ry@eqo5b!(e+_yvgg5y59lse*-$66^z2g-_yx64+*sl21m(93r'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['recommerce14.herokuapp.com']
+ALLOWED_HOSTS = ['recommerce14.herokuapp.com', 'localhost', '127.0.0.1']
 
 # fokinni
 FORCE_SESSION_TO_ONE = False
@@ -108,6 +108,7 @@ DATABASES = {
 }
 
 # heroku
+# add this
 db_from_env = dj_database_url.config()  # postgreSQL Database in heroku
 DATABASES['default'].update(db_from_env)
 DATABASES['default']['CONN_MAX_AGE'] = 500
