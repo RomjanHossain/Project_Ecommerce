@@ -5,6 +5,7 @@ chardet==3.0.4
 dj-database-url==0.5.0
 Django==3.0.3
 django-crispy-forms==1.8.1
+django-heroku==0.3.1
 django-phonenumber-field==4.0.0
 djangorestframework==3.11.0
 gunicorn==20.0.4
@@ -21,3 +22,4 @@ requests==2.22.0
 six==1.14.0
 sqlparse==0.3.0
 urllib3==1.25.8
+whitenoise==5.0.1
