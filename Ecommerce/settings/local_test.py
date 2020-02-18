@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 
 
@@ -61,7 +61,7 @@ INSTALLED_APPS = [
 
 
 # mail champ
-MAILCHIMP_API_KEY = "#"
+MAILCHIMP_API_KEY = "6285d2f83d165670b6324b3031d9a66f-us4"
 MAILCHIMP_DATA_CENTER = "us4"
 MAILCHIMP_EMAIL_LIST_ID = "2b036d9ada"
 # finished
@@ -151,3 +151,14 @@ MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static_cdn', "my_media")
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# for web https
+CORS_REPLACE_HTTPS_REFERER = False
+HOST_SCHEME = "http://"
+SECURE_PROXY_SSL_HEADER = None
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_HSTS_SECONDS = None
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_FRAME_DENY = False
